@@ -1,4 +1,4 @@
-package com.android.themoviedb.presentation.components.movie
+package com.android.themoviedb.presentation.screens.movie
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
@@ -29,15 +29,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.android.themoviedb.BuildConfig
-import com.android.themoviedb.data.local.MovieEntity
+import com.android.themoviedb.domain.model.movie.MovieEntity
 
 @Composable
 fun ItemMovie(
     modifier: Modifier = Modifier,
-    movieEntity: MovieEntity
+    movieEntity: MovieEntity,
+    navController: NavHostController,
 
     ) {
     Card(
@@ -85,7 +87,7 @@ fun ItemMovie(
                     )
 
                     Text(
-                        text = /*movieModel.voteAverage.toString()*/ "8" + "/10",
+                        text =movieEntity.rating.orEmpty(),
                         style = MaterialTheme.typography.titleSmall,
                         color = Color.Yellow,
                         modifier = Modifier.padding(start = 5.dp)

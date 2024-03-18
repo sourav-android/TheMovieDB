@@ -169,7 +169,8 @@ dependencies {
     implementation("io.github.pilgr:paperdb:$paperVersion")
     // Lottie
     implementation("com.airbnb.android:lottie-compose:$lottieVersion")
-
+    // System UI Controller - Accompanist
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
 
     /*implementation("com.github.bumptech.glide:glide:4.14.2")
     ksp("com.github.bumptech.glide:ksp:4.14.2")*/

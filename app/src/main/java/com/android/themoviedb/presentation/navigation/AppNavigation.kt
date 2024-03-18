@@ -16,8 +16,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.android.themoviedb.presentation.components.ArtistScreen
-import com.android.themoviedb.presentation.components.movie.MovieScreen
+import com.android.themoviedb.presentation.screens.ArtistScreen
+import com.android.themoviedb.presentation.screens.movie.MovieScreen
 import com.android.themoviedb.presentation.viewmodel.MovieViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -25,6 +25,7 @@ import org.koin.androidx.compose.koinViewModel
 fun AppNavigation() {
 
     val navController = rememberNavController()
+
 
     Scaffold(
         bottomBar = {
@@ -69,10 +70,10 @@ fun AppNavigation() {
         ) {
 
             composable(route = Screens.MovieScreen.name) {
-                val homeViewModel = koinViewModel<MovieViewModel>()
-                val movieRemotePagingItems  = homeViewModel.moviesState.collectAsLazyPagingItems()
-                val movieLocalPagingItems  = homeViewModel.moviePagingFlow.collectAsLazyPagingItems()
-                MovieScreen(movieLocalPagingItems = movieRemotePagingItems)
+                val movieViewModel = koinViewModel<MovieViewModel>()
+                val allMovies = movieViewModel.getAllPopularMovies.collectAsLazyPagingItems()
+                MovieScreen(allMovies = allMovies,
+                    navController = navController)
 
             }
             composable(route = Screens.ArtistScreen.name) {

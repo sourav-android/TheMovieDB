@@ -1,9 +1,18 @@
 package com.android.themoviedb.data.remote.dto.movie
 
-
+import com.android.themoviedb.domain.model.movie.MovieEntity
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class MovieResponse<T : Any?> {
+
+data class MovieResponse(
+    @SerializedName("page")
+    val page: Int = 1,
+    @SerializedName("results")
+    val movieEntities: List<MovieEntity>,
+) : Serializable
+
+/*class MovieResponse<T : Any?> {
 
     @SerializedName("results")
     val results: T? = null
@@ -16,4 +25,4 @@ class MovieResponse<T : Any?> {
 
     @SerializedName("total_results")
     val totalResults: Int? = null
-}
+}*/

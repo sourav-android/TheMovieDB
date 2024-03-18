@@ -1,15 +1,9 @@
-package com.android.themoviedb.domain.repository
+package com.android.themoviedb.data.repository.datasource.remote
 
 import androidx.paging.PagingData
 import com.android.themoviedb.domain.model.movie.MovieEntity
 import kotlinx.coroutines.flow.Flow
 
-interface MovieRepository {
-
-    /*-- for Remote ---*/
+interface MovieRemoteDataSource {
     fun getPopularMovies(): Flow<PagingData<MovieEntity>>
-
-    /*--- for Local ---*/
-    fun getMoviesFromDB(movieId: Int): Flow<MovieEntity>
-
 }

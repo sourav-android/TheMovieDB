@@ -2,6 +2,8 @@ package com.android.themoviedb.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.android.themoviedb.domain.model.movie.MovieEntity
+import com.android.themoviedb.domain.model.movie.MovieRemoteKeys
 
 @Database(
     entities = [MovieEntity::class, MovieRemoteKeys::class],
@@ -10,6 +12,6 @@ import androidx.room.RoomDatabase
 )
 abstract class MovieDatabase : RoomDatabase() {
 
-    abstract fun movieDAO(): MovieDAO
-    abstract fun remoteKeysDAO(): RemoteKeysDao
+    abstract fun movieDAO(): MovieDao
+    abstract fun remoteKeysDAO(): MovieRemoteKeysDao
 }

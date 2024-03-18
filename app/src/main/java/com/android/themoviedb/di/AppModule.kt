@@ -1,25 +1,20 @@
 package com.android.themoviedb.di
 
 import android.content.Context
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.room.Room
 import com.android.themoviedb.BuildConfig
 import com.android.themoviedb.core.utils.Constants.MOVIE_DATABASE
-import com.android.themoviedb.data.api.MovieService
+import com.android.themoviedb.data.api.MovieApi
 import com.android.themoviedb.data.local.MovieDatabase
-import com.android.themoviedb.data.remote.datasource.remote.MovieRemoteDataSource
-import com.android.themoviedb.data.remote.datasource.remote.MovieRemoteDataSourceImpl
-import com.android.themoviedb.data.repository.paging.MovieRemoteMediator
 import com.android.themoviedb.data.repository.MovieRepositoryImpl
-import com.android.themoviedb.data.local.MovieEntity
-import com.android.themoviedb.pagingonly.MovieDtoMapper
-import com.android.themoviedb.data.remote.mapper.MovieEntityMapper
+import com.android.themoviedb.data.repository.datasource.remote.MovieLocalDataSource
+import com.android.themoviedb.data.repository.datasource.remote.MovieRemoteDataSource
+import com.android.themoviedb.data.repository.datasourceImpl.MovieLocalDataSourceImpl
+import com.android.themoviedb.data.repository.datasourceImpl.MovieRemoteDataSourceImpl
 import com.android.themoviedb.domain.repository.MovieRepository
-import com.android.themoviedb.domain.usecase.GetMoviesUseCase
-import com.android.themoviedb.domain.usecase.GetSavedMoviesUseCase
-import com.android.themoviedb.domain.usecase.SaveMoviesUseCase
+import com.android.themoviedb.domain.usecase.GetMoviesFromDBUseCase
+import com.android.themoviedb.domain.usecase.GetPopularMoviesUseCase
+import com.android.themoviedb.domain.usecase.MovieUseCases
 import com.android.themoviedb.presentation.viewmodel.MovieViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -46,32 +41,33 @@ val appModule = module {
     }
 
     single {
-        get<Retrofit>().create(MovieService::class.java)
+        get<Retrofit>().create(MovieApi::class.java)
     }
 
     single { provideDatabase(androidContext()) }
     single { provideMovieDao(get()) }
     single { provideRemoteKeysDao(get()) }
 
-    single { MovieEntityMapper() }
-    single { provideMoviesPager(get(), get(), get()) }
+
 
     single<MovieRemoteDataSource> {
-        MovieRemoteDataSourceImpl(get())
+        MovieRemoteDataSourceImpl(get(), get())
     }
 
-    single { MovieDtoMapper() }
+    single<MovieLocalDataSource> {
+        MovieLocalDataSourceImpl(get())
+    }
 
     single<MovieRepository> {
-        MovieRepositoryImpl(get(), get(), get(), get(), get())
+        MovieRepositoryImpl(get(), get())
     }
 
-    factory { GetMoviesUseCase(get()) }
-    factory { SaveMoviesUseCase(get()) }
-    factory { GetSavedMoviesUseCase(get()) }
+    factory { GetPopularMoviesUseCase(get()) }
+    factory { GetMoviesFromDBUseCase(get()) }
+    factory { MovieUseCases(get(), get()) }
 
     viewModel {
-        MovieViewModel(get() ,get())
+        MovieViewModel(get())
     }
 
 
@@ -91,22 +87,5 @@ fun provideMovieDao(db: MovieDatabase) = db.movieDAO()
 fun provideRemoteKeysDao(db: MovieDatabase) = db.remoteKeysDAO()
 
 
-@OptIn(ExperimentalPagingApi::class)
-fun provideMoviesPager(
-    movieDatabase: MovieDatabase,
-    movieService: MovieService,
-    movieEntityMapper: MovieEntityMapper,
-): Pager<Int, MovieEntity> {
-    return Pager(
-        config = PagingConfig(pageSize = 20),
-        remoteMediator = MovieRemoteMediator(
-            movieDatabase = movieDatabase,
-            movieService = movieService,
-            movieEntityMapper = movieEntityMapper
-        ),
-        pagingSourceFactory = {
-            movieDatabase.movieDAO().getMovies()
-        }
-    )
-}
+
 
