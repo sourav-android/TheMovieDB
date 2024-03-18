@@ -72,7 +72,7 @@ fun AppNavigation() {
                 val homeViewModel = koinViewModel<MovieViewModel>()
                 val movieRemotePagingItems  = homeViewModel.moviesState.collectAsLazyPagingItems()
                 val movieLocalPagingItems  = homeViewModel.moviePagingFlow.collectAsLazyPagingItems()
-                MovieScreen(movieRemotePagingItems = movieRemotePagingItems, movieLocalPagingItems = movieLocalPagingItems)
+                MovieScreen(movieRemotePagingItems = movieRemotePagingItems)
 
             }
             composable(route = Screens.ArtistScreen.name) {

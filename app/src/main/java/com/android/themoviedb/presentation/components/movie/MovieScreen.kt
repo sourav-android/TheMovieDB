@@ -17,10 +17,10 @@ import com.android.themoviedb.presentation.resource.PageLoader
 @Composable
 fun MovieScreen(
     movieRemotePagingItems: LazyPagingItems<MovieModel>,
-    movieLocalPagingItems: LazyPagingItems<MovieEntity>,
+
     modifier: Modifier = Modifier,
 ) {
-
+    /*movieLocalPagingItems: LazyPagingItems<MovieEntity>,*/
     LazyColumn {
         item { Spacer(modifier = modifier.padding(4.dp)) }
         items(movieRemotePagingItems.itemCount){ index ->
