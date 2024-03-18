@@ -1,4 +1,4 @@
-package com.android.themoviedb.presentation.resource
+package com.android.themoviedb.presentation.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -44,6 +44,7 @@ fun LoadingNextPageItem(modifier: Modifier) {
             .wrapContentWidth(Alignment.CenterHorizontally)
     )
 }
+
 
 @Composable
 fun ErrorMessage(

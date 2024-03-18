@@ -1,4 +1,4 @@
-package com.android.themoviedb.presentation.resource
+package com.android.themoviedb.presentation.utils
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat

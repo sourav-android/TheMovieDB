@@ -1,4 +1,4 @@
-package com.android.themoviedb.presentation.resource
+package com.android.themoviedb.presentation.component
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.animateFloatAsState
