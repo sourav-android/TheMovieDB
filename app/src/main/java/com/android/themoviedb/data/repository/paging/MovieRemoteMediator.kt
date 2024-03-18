@@ -54,7 +54,7 @@ class MovieRemoteMediator(
                 }
             }
 
-            val movieResponse = movieService.getMovies(
+            val movieResponse = movieService.getPopularMovies(
                 apiKey = BuildConfig.TMDB_KEY,
                 pageNumber = currentPage + 1
             )

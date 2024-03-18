@@ -9,12 +9,9 @@ import retrofit2.http.Query
 interface MovieService {
 
     @GET("movie/popular")
-    suspend fun getMovies(
+    suspend fun getPopularMovies(
         @Query("api_key") apiKey:  String,
         @Query("page") pageNumber :  Int
     ): MovieResponse<List<MovieDto>>
-
-
-
-
+    
 }

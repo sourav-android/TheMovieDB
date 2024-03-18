@@ -12,7 +12,7 @@ class MovieRemoteDataSourceImpl(
         apiKey: String,
         pageNumber: Int,
     ): MovieResponse<List<MovieDto>> {
-        return movieService.getMovies(apiKey = apiKey, pageNumber = pageNumber)
+        return movieService.getPopularMovies(apiKey = apiKey, pageNumber = pageNumber)
     }
 
 
