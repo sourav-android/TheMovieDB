@@ -18,7 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.android.themoviedb.presentation.screens.ArtistScreen
 import com.android.themoviedb.presentation.screens.movie.MovieScreen
-import com.android.themoviedb.presentation.viewmodel.MovieViewModel
+import com.android.themoviedb.presentation.screens.movie.MovieViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

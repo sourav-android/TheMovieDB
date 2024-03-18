@@ -15,7 +15,7 @@ import com.android.themoviedb.domain.repository.MovieRepository
 import com.android.themoviedb.domain.usecase.GetMoviesFromDBUseCase
 import com.android.themoviedb.domain.usecase.GetPopularMoviesUseCase
 import com.android.themoviedb.domain.usecase.MovieUseCases
-import com.android.themoviedb.presentation.viewmodel.MovieViewModel
+import com.android.themoviedb.presentation.screens.movie.MovieViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel

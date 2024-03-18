@@ -1,4 +1,4 @@
-package com.android.themoviedb.presentation.viewmodel
+package com.android.themoviedb.presentation.screens.movie
 
 import androidx.lifecycle.ViewModel
 import com.android.themoviedb.domain.usecase.MovieUseCases
