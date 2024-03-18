@@ -2,7 +2,7 @@ package com.android.themoviedb.domain.repository
 
 import androidx.paging.PagingData
 import com.android.themoviedb.data.local.MovieEntity
-import com.android.themoviedb.domain.model.movie.MovieModel
+import com.android.themoviedb.pagingonly.MovieModel
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
@@ -10,6 +10,7 @@ interface MovieRepository {
     /*-- for Remote ---*/
     /*fun getMovies() : Flow<Resource<List<MovieDto>>>?*/
     fun getMovieList() : Flow<PagingData<MovieModel>>
+    fun getMoviesFromLocal() :Flow<PagingData<MovieEntity>>
 
     /*--- for Local ---*/
 

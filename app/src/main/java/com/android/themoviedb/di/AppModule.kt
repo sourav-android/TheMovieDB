@@ -14,7 +14,7 @@ import com.android.themoviedb.data.remote.datasource.remote.MovieRemoteDataSourc
 import com.android.themoviedb.data.repository.paging.MovieRemoteMediator
 import com.android.themoviedb.data.repository.MovieRepositoryImpl
 import com.android.themoviedb.data.local.MovieEntity
-import com.android.themoviedb.data.remote.mapper.MovieDtoMapper
+import com.android.themoviedb.pagingonly.MovieDtoMapper
 import com.android.themoviedb.data.remote.mapper.MovieEntityMapper
 import com.android.themoviedb.domain.repository.MovieRepository
 import com.android.themoviedb.domain.usecase.GetMoviesUseCase
@@ -50,7 +50,8 @@ val appModule = module {
     }
 
     single { provideDatabase(androidContext()) }
-    single { provideDao(get()) }
+    single { provideMovieDao(get()) }
+    single { provideRemoteKeysDao(get()) }
 
     single { MovieEntityMapper() }
     single { provideMoviesPager(get(), get(), get()) }
@@ -62,7 +63,7 @@ val appModule = module {
     single { MovieDtoMapper() }
 
     single<MovieRepository> {
-        MovieRepositoryImpl(get(), get())
+        MovieRepositoryImpl(get(), get(), get(), get(), get())
     }
 
     factory { GetMoviesUseCase(get()) }
@@ -86,7 +87,8 @@ fun provideDatabase(context: Context) =
         .fallbackToDestructiveMigration()
         .build()
 
-fun provideDao(db: MovieDatabase) = db.movieDAO()
+fun provideMovieDao(db: MovieDatabase) = db.movieDAO()
+fun provideRemoteKeysDao(db: MovieDatabase) = db.remoteKeysDAO()
 
 
 @OptIn(ExperimentalPagingApi::class)
@@ -103,7 +105,7 @@ fun provideMoviesPager(
             movieEntityMapper = movieEntityMapper
         ),
         pagingSourceFactory = {
-            movieDatabase.movieDAO().pagingSource()
+            movieDatabase.movieDAO().getMovies()
         }
     )
 }

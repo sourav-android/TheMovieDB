@@ -11,19 +11,27 @@ import com.android.themoviedb.core.utils.Constants.MOVIE_TABLE
 @Dao
 interface MovieDAO {
 
-    @Upsert
-    suspend fun upsertAll(movieEntity: List<MovieEntity>)
-
+    /*
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(movieEntity: MovieEntity)
 
-    /*@Query("SELECT * FROM $MOVIE_TABLE WHERE movie_id=:id")
-    suspend fun getById(id: Int): MovieResponse<MovieDto>?*/
+    */
+   /* @Upsert
+    suspend fun upsertAll(movieEntity: List<MovieEntity>)
 
     @Query("SELECT * FROM $MOVIE_TABLE")
     fun pagingSource(): PagingSource<Int, MovieEntity>
 
     @Query("DELETE FROM $MOVIE_TABLE")
-    suspend fun clearAll()
+    suspend fun clearAll()*/
+
+    @Query("SELECT * FROM $MOVIE_TABLE")
+    fun getMovies(): PagingSource<Int, MovieEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addMovies(quotes: List<MovieEntity>)
+
+    @Query("DELETE FROM $MOVIE_TABLE")
+    suspend fun deleteMovies()
 
 }

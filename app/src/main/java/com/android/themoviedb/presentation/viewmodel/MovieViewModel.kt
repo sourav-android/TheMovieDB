@@ -7,8 +7,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.android.themoviedb.data.local.MovieEntity
-import com.android.themoviedb.data.remote.mapper.MovieDtoMapper
-import com.android.themoviedb.domain.model.movie.MovieModel
+import com.android.themoviedb.data.repository.MovieRepositoryImpl
+import com.android.themoviedb.pagingonly.MovieModel
 import com.android.themoviedb.domain.usecase.GetMoviesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -17,12 +17,12 @@ import kotlinx.coroutines.launch
 
 class MovieViewModel(
     private val getMoviesUseCase: GetMoviesUseCase,
-    pager: Pager<Int, MovieEntity>
+    pager: Pager<Int, MovieEntity>,
 ) : ViewModel() {
 
-    private val _moviesState: MutableStateFlow<PagingData<MovieModel>> =
+    private val _moviesState: MutableStateFlow<PagingData<MovieEntity>> =
         MutableStateFlow(value = PagingData.empty())
-    val moviesState: MutableStateFlow<PagingData<MovieModel>> get() = _moviesState
+    val moviesState: MutableStateFlow<PagingData<MovieEntity>> get() = _moviesState
 
     init {
         onEvent(HomeEvent.MovieScreen)
@@ -52,12 +52,13 @@ class MovieViewModel(
 
     }
 
-    val moviePagingFlow = pager
+    val moviePagingFlow =  pager
         .flow
         .map { pagingData ->
             pagingData.map { it }
         }
         .cachedIn(viewModelScope)
+
 
     /*private fun saveMovies(movieEntity: PagingData<MovieEntity>) {
         viewModelScope.launch {

@@ -33,12 +33,11 @@ import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.android.themoviedb.BuildConfig
 import com.android.themoviedb.data.local.MovieEntity
-import com.android.themoviedb.domain.model.movie.MovieModel
 
 @Composable
 fun ItemMovie(
     modifier: Modifier = Modifier,
-    movieModel: MovieModel
+    movieEntity: MovieEntity
 
     ) {
     Card(
@@ -54,7 +53,7 @@ fun ItemMovie(
             defaultElevation = 8.dp
         )
     ) {
-        val painter = rememberAsyncImagePainter(BuildConfig.MOVIE_POSTER_URL + movieModel.posterPath)
+        val painter = rememberAsyncImagePainter(BuildConfig.MOVIE_POSTER_URL + movieEntity.posterPath)
         val transition by animateFloatAsState(
             targetValue = if (painter.state is AsyncImagePainter.State.Success) 1f else 0f, label = ""
         )
@@ -86,7 +85,7 @@ fun ItemMovie(
                     )
 
                     Text(
-                        text = /*movieEntity.voteAverage.toString()*/ "8" + "/10",
+                        text = /*movieModel.voteAverage.toString()*/ "8" + "/10",
                         style = MaterialTheme.typography.titleSmall,
                         color = Color.Yellow,
                         modifier = Modifier.padding(start = 5.dp)
@@ -95,7 +94,7 @@ fun ItemMovie(
             }
 
             Text(
-                    text = movieModel.title ?: "",
+                    text = movieEntity.title ?: "",
                     color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
@@ -109,7 +108,7 @@ fun ItemMovie(
             Spacer(modifier = modifier.padding(vertical = 4.dp))
 
             Text(
-                    text = movieModel.overview?: "",
+                    text = movieEntity.overview?: "",
                     modifier = modifier
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 8.dp),

@@ -1,9 +1,7 @@
 package com.android.themoviedb.domain.usecase
 
 import androidx.paging.PagingData
-import com.android.themoviedb.data.local.MovieEntity
-import com.android.themoviedb.data.remote.dto.movie.MovieDto
-import com.android.themoviedb.domain.model.movie.MovieModel
+import com.android.themoviedb.pagingonly.MovieModel
 import com.android.themoviedb.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -12,7 +10,9 @@ class GetMoviesUseCase(
 ) {
 
     /*operator fun invoke() = movieRepository.getMovies()*/
-    operator fun invoke(): Flow<PagingData<MovieModel>> {
+    /*operator fun invoke(): Flow<PagingData<MovieModel>> {
         return movieRepository.getMovieList()
-    }
+    }*/
+
+    operator fun invoke() = movieRepository.getMoviesFromLocal()
 }

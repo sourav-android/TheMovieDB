@@ -1,4 +1,4 @@
-package com.android.themoviedb.domain.model.movie
+package com.android.themoviedb.pagingonly
 
 import java.io.Serializable
 

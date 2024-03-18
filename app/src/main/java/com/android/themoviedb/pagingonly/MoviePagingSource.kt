@@ -1,11 +1,9 @@
-package com.android.themoviedb.data.repository.paging
+package com.android.themoviedb.pagingonly
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.android.themoviedb.BuildConfig
 import com.android.themoviedb.data.remote.datasource.remote.MovieRemoteDataSource
-import com.android.themoviedb.data.remote.mapper.MovieDtoMapper
-import com.android.themoviedb.domain.model.movie.MovieModel
 import retrofit2.HttpException
 import java.io.IOException
 

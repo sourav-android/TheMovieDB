@@ -1,7 +1,6 @@
-package com.android.themoviedb.data.remote.mapper
+package com.android.themoviedb.pagingonly
 
 import com.android.themoviedb.data.remote.dto.movie.MovieDto
-import com.android.themoviedb.domain.model.movie.MovieModel
 import com.android.themoviedb.domain.util.DomainMapper
 
 class MovieDtoMapper : DomainMapper<MovieDto, MovieModel> {
