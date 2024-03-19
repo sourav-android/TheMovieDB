@@ -34,6 +34,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.android.themoviedb.BuildConfig
 import com.android.themoviedb.domain.model.movie.MovieEntity
+import com.android.themoviedb.presentation.navigation.Screen
 
 @Composable
 fun ItemMovie(
@@ -46,7 +47,9 @@ fun ItemMovie(
         modifier = modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .clip(RoundedCornerShape(8.dp))
-            .clickable {/* onClick()*/ },
+            .clickable {
+                navController.navigate(route = Screen.MovieDetails.movieId(movieEntity.movieId.toString()))
+            },
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
@@ -55,9 +58,11 @@ fun ItemMovie(
             defaultElevation = 8.dp
         )
     ) {
-        val painter = rememberAsyncImagePainter(BuildConfig.MOVIE_POSTER_URL + movieEntity.posterPath)
+        val painter =
+            rememberAsyncImagePainter(BuildConfig.MOVIE_POSTER_URL + movieEntity.posterPath)
         val transition by animateFloatAsState(
-            targetValue = if (painter.state is AsyncImagePainter.State.Success) 1f else 0f, label = ""
+            targetValue = if (painter.state is AsyncImagePainter.State.Success) 1f else 0f,
+            label = ""
         )
         Column {
             Box(
@@ -87,7 +92,7 @@ fun ItemMovie(
                     )
 
                     Text(
-                        text =movieEntity.rating.orEmpty(),
+                        text = movieEntity.rating.orEmpty(),
                         style = MaterialTheme.typography.titleSmall,
                         color = Color.Yellow,
                         modifier = Modifier.padding(start = 5.dp)
@@ -96,28 +101,28 @@ fun ItemMovie(
             }
 
             Text(
-                    text = movieEntity.title ?: "",
-                    color = MaterialTheme.colorScheme.onBackground,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 8.dp)
-                )
+                text = movieEntity.title ?: "",
+                color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.titleMedium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 8.dp)
+            )
 
             Spacer(modifier = modifier.padding(vertical = 4.dp))
 
             Text(
-                    text = movieEntity.overview?: "",
-                    modifier = modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 8.dp),
-                    color = MaterialTheme.colorScheme.onSurface,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
+                text = movieEntity.overview ?: "",
+                modifier = modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 8.dp),
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
         }
     }
 }

@@ -15,11 +15,11 @@ val listOfNavItems = listOf(
     NavItems(
         label = "Movie",
         icon = Icons.Default.Home,
-        route = Screens.MovieScreen.name
+        route = Screen.Movie.route
     ),
     NavItems(
         label = "Artist",
         icon = Icons.Default.Person,
-        route = Screens.ArtistScreen.name
+        route = Screen.Artist.route
     ),
 )

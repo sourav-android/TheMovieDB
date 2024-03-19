@@ -42,7 +42,10 @@ fun MovieScreen(
     ) { paddingValues ->
         LazyColumn {
             item { Spacer(modifier = modifier.padding(paddingValues)) }
-            items(allMovies.itemCount) { index ->
+            items(
+                allMovies.itemCount,
+
+            ) { index ->
                 ItemMovie(
                     movieEntity = allMovies[index]!!,
                     navController = navController
